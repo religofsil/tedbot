@@ -1,4 +1,4 @@
-import csv
+import json
 
 
 class Video:
@@ -6,10 +6,17 @@ class Video:
         vars(self).update(values)
 
 
+class Collection:
+    def __init__(self):
+        pass
+
+
 def _read_data():
+    f = open('database.json', 'r', encoding='utf-8')
+    database = json.load(f)
     arr = []
-    with open('data.csv', newline='') as csvfile:
-        datareader = csv.DictReader(csvfile, delimiter='\t')
-        for row in datareader:
-            arr.append(Video(row))
+    for i in database:
+        arr.append(Video(database[i]))
     return arr
+
+print(_read_data()[0].URL)

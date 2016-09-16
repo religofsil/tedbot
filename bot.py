@@ -1,25 +1,24 @@
 # -*- coding: utf-8 -*-
 import config
 import telebot
-import codecs, random, json
+import random
+from getdata import _read_data, Video
 
-f = codecs.open('database.json', 'r', 'utf-8')
-database = json.load(f)
+database = _read_data()
 
 
 def tag_search(q):
     arr = []
-    for i in database:
-        if q in database[i]['tags']:
-            arr.append(database[i]['URL'])
+    for video in database:
+        if q in video.tags:
+            arr.append(video.URL)
     if len(arr) != 0:
         return random.choice(arr)
     return 'Sorry, no matching videos. :('
 
 
 def random_video():
-    id = random.randint(2, 2257)
-    return database[str(id)]['URL']
+    return random.choice(database).URL
 
 
 bot = telebot.TeleBot(config.token)
