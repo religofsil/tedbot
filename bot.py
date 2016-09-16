@@ -19,7 +19,7 @@ def tag_search(q):
     bestchoice=d[sorted(d, key=d.get, reverse=True)[0]]
     for i in d:
         if d[i]==bestchoice:
-            arr.append(d[i])
+            arr.append(i)
     return random.choice(arr)
 
 
