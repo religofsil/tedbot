@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*-
 import config
 import telebot
-import random
+import random, codecs
 from getdata import _read_data, Video
 
 database = _read_data()
 
+def get_random_tags():
+    f=codecs.open('taglist.txt', 'r', 'utf-8')
+    all_tags=[]
+    for line in f:
+        all_tags.append(line)
+    random.shuffle(all_tags)
+    final_string="".join(all_tags[:20])
+    final_string='Here are some topics that might catch your attention:\n\n'+final_string
+    return final_string
 
 def tag_search(q):
     q=[i.strip() for i in q.split(',')]
@@ -81,7 +90,9 @@ def rand(message):
         text = 'Sorry, no matching videos. :('
     bot.send_message(message.chat.id, text)
 
-
+@bot.message_handler(commands=['taglist'])
+def rand(message):
+    bot.send_message(message.chat.id, get_random_tags())
 
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
