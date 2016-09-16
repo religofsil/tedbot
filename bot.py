@@ -27,6 +27,8 @@ def tag_search(q):
                 d[video.URL]+=1
     arr=[]
     bestchoice=d[sorted(d, key=d.get, reverse=True)[0]]
+    if bestchoice==0:
+        return None
     for i in d:
         if d[i]==bestchoice:
             arr.append(i)
