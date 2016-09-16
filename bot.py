@@ -10,9 +10,9 @@ def get_random_tags():
     f=codecs.open('taglist.txt', 'r', 'utf-8')
     all_tags=[]
     for line in f:
-        all_tags.append(line)
+        all_tags.append(line.strip())
     random.shuffle(all_tags)
-    final_string="".join(all_tags[:20])
+    final_string=", ".join(all_tags[:20])
     final_string='Here are some topics that might get your attention:\n\n'+final_string
     return final_string
 
