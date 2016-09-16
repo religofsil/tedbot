@@ -6,11 +6,6 @@ class Video:
         vars(self).update(values)
 
 
-class Collection:
-    def __init__(self):
-        pass
-
-
 def _read_data():
     f = open('database.json', 'r', encoding='utf-8')
     database = json.load(f)
