@@ -38,7 +38,7 @@ def rand(message):
 
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
-    bot.send_message(message.chat.id, tag_search(message.text))
+    bot.send_message(message.chat.id, tag_search(message.text.lower()))
 
 
 if __name__ == '__main__':
