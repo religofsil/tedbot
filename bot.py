@@ -68,7 +68,7 @@ def rand(message):
 
 @bot.message_handler(commands=['author'])
 def rand(message):
-    text = tag_search(message.text)
+    text = author_search(message.text)
     if text is None:
         text = 'Sorry, no matching videos. :('
     bot.send_message(message.chat.id, text)
@@ -81,13 +81,6 @@ def rand(message):
         text = 'Sorry, no matching videos. :('
     bot.send_message(message.chat.id, text)
 
-
-@bot.message_handler(commands=['author'])
-def rand(message):
-    text = description_search(message.text)
-    if text is None:
-        text = 'Sorry, no matching videos. :('
-    bot.send_message(message.chat.id, text)
 
 
 @bot.message_handler(content_types=["text"])
