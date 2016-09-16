@@ -9,12 +9,18 @@ database = _read_data()
 
 def tag_search(q):
     q=q.split(', ')
-    arr = []
+    d={}
     for video in database:
-        if [n for n in q] in video.tags:
-            arr.append(video.URL)
-    if len(arr) != 0:
-        return random.choice(arr)
+        d[video.URL]=0
+        for n in q:
+            if n in video.tags:
+                d[video.URL]+=1
+    arr=[]
+    bestchoice=d[sorted(d, key=d.get, reverse=True)[0]]
+    for i in d:
+        if d[i]==bestchoice:
+            arr.append(d[i])
+    return random.choice(arr)
 
 
 def description_search(q):
