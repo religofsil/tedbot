@@ -20,8 +20,17 @@ def tag_search(q):
 def description_search(q):
     arr = []
     for video in database:
-        if q in video.tags:
-            arr.append(video.description)
+        if q.lower() in video.description.lower():
+            arr.append(video.URL)
+    if len(arr) != 0:
+        return random.choice(arr)
+
+
+def author_search(q):
+    arr = []
+    for video in database:
+        if q.lower() in video.author.lower():
+            arr.append(video.URL)
     if len(arr) != 0:
         return random.choice(arr)
 
@@ -50,6 +59,30 @@ def rand(message):
     if text is None:
         text = 'Sorry, no matching videos. :('
     bot.send_message(message.chat.id, text)
+
+@bot.message_handler(commands=['author'])
+def rand(message):
+    text = tag_search(message.text)
+    if text is None:
+        text = 'Sorry, no matching videos. :('
+    bot.send_message(message.chat.id, text)
+
+
+@bot.message_handler(commands=['description'])
+def rand(message):
+    text = description_search(message.text)
+    if text is None:
+        text = 'Sorry, no matching videos. :('
+    bot.send_message(message.chat.id, text)
+
+
+@bot.message_handler(commands=['author'])
+def rand(message):
+    text = description_search(message.text)
+    if text is None:
+        text = 'Sorry, no matching videos. :('
+    bot.send_message(message.chat.id, text)
+
 
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
