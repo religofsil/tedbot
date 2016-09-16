@@ -5,7 +5,12 @@ import codecs, random, json
 
 f=codecs.open('database.json', 'r', 'utf-8')
 database=json.load(f)
-print(database['1'])
+
+def tag_search(q):
+    for i in database:
+        if q in database[i]['tags']:
+            return database[i]['URL']
+    return 'Sorry, no matching videos. :('
 
 bot = telebot.TeleBot(config.token)
 
@@ -20,7 +25,7 @@ def nameyourself(message):
 
 @bot.message_handler(content_types=["text"])
 def repeat_all_messages(message):
-    bot.send_message(message.chat.id, message.text)
+    bot.send_message(message.chat.id, tag_search(message.text))
 
 if __name__ == '__main__':
      bot.polling(none_stop=True)
