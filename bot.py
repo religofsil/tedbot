@@ -8,9 +8,10 @@ database = _read_data()
 
 
 def tag_search(q):
+    q=q.split(', ')
     arr = []
     for video in database:
-        if q in video.tags:
+        if [n for n in q] in video.tags:
             arr.append(video.URL)
     if len(arr) != 0:
         return random.choice(arr)
