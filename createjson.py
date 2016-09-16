@@ -13,6 +13,7 @@ for line in f:
     d[id]['event']=line[7]
     d[id]['duration']=line[8]
     d[id]['date published']=line[9]
+    line[10]=line[10].rstrip()
     d[id]['tags']=line[10].split(',')
     id+=1
 f.close()
