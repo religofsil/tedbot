@@ -38,7 +38,16 @@ def rand(message):
 
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
-    bot.send_message(message.chat.id, tag_search(message.text.lower()))
+    bytags = tag_search(message.text)
+    if bytags is None:
+        bydesc = description_search(message.text)
+        if bydesc is None:
+            text = 'Sorry, no matching videos. :('
+        else:
+            text = bydesc
+    else:
+        text = bytags
+    bot.send_message(message.chat.id, text)
 
 
 if __name__ == '__main__':
