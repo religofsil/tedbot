@@ -8,17 +8,17 @@ database = _read_data()
 
 
 def tag_search(q):
-    q=q.split(', ')
-    d={}
+    q = q.split(', ')
+    d = {}
     for video in database:
-        d[video.URL]=0
+        d[video.URL] = 0
         for n in q:
             if n in video.tags:
-                d[video.URL]+=1
-    arr=[]
-    bestchoice=d[sorted(d, key=d.get, reverse=True)[0]]
+                d[video.URL] += 1
+    arr = []
+    bestchoice = d[sorted(d, key=d.get, reverse=True)[0]]
     for i in d:
-        if d[i]==bestchoice:
+        if d[i] == bestchoice:
             arr.append(i)
     return random.choice(arr)
 
@@ -59,12 +59,14 @@ def rand(message):
     bot.send_message(message.chat.id,
                      random_video())
 
+
 @bot.message_handler(commands=['tags'])
 def rand(message):
     text = tag_search(message.text)
     if text is None:
         text = 'Sorry, no matching videos. :('
     bot.send_message(message.chat.id, text)
+
 
 @bot.message_handler(commands=['author'])
 def rand(message):
