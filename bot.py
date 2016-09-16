@@ -13,7 +13,7 @@ def get_random_tags():
         all_tags.append(line)
     random.shuffle(all_tags)
     final_string="".join(all_tags[:20])
-    final_string='Here are some topics that might catch your attention:\n\n'+final_string
+    final_string='Here are some topics that might get your attention:\n\n'+final_string
     return final_string
 
 def tag_search(q):
