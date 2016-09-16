@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 import config
 import telebot
+import codecs, random, json
+
+f=codecs.open('database.json', 'r', 'utf-8')
+database=json.load(f)
+print(database['1'])
 
 bot = telebot.TeleBot(config.token)
 
