@@ -14,15 +14,7 @@ def tag_search(q):
             arr.append(video.URL)
     if len(arr) != 0:
         return random.choice(arr)
-
-
-def description_search(q):
-    arr = []
-    for video in database:
-        if q in video.description:
-            arr.append(video.URL)
-    if len(arr) != 0:
-        return random.choice(arr)
+    return 'Sorry, no matching videos. :('
 
 
 def random_video():
@@ -46,16 +38,7 @@ def rand(message):
 
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
-    bytags = tag_search(message.text)
-    if bytags is None:
-        bydesc = description_search(message.text)
-        if bydesc is None:
-            text = 'Sorry, no matching videos. :('
-        else:
-            text = bydesc
-    else:
-        text = bytags
-    bot.send_message(message.chat.id, text)
+    bot.send_message(message.chat.id, tag_search(message.text.lower()))
 
 
 if __name__ == '__main__':
