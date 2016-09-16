@@ -17,6 +17,7 @@ def get_random_tags():
     return final_string
 
 def tag_search(q):
+    q=q.lower()
     q=[i.strip() for i in q.split(',')]
     d={}
     for video in database:
