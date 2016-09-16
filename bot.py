@@ -57,10 +57,15 @@ def random_video():
 bot = telebot.TeleBot(config.token)
 
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start'])
 def nameyourself(message):
     bot.send_message(message.chat.id,
-                     "Hi! I can send you an inspirational video from ted.com. Just type any topic. If you can't choose a topic, please type /random.")
+                     "Hi! I can send you an inspirational video from ted.com. Just type any topic. If you can't choose a topic, please type /random. For more instructions type /help.")
+
+@bot.message_handler(commands=['help'])
+def help(message):
+    bot.send_message(message.chat.id,
+                     "You can just input some key words separated by comma (e.g. 'linguistics, math'), and I'll send you a matching video. Or you can use our advanced search, just type your command before the query.\nHere is the list of possible commands:\n/taglist          If you want examples of topics we have.\n/random       Get random video.\n/tags            Search video by tags.\n/description   Search video by words from description.\n/author         Search video by author.")
 
 
 @bot.message_handler(commands=['random'])

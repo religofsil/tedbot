@@ -9,7 +9,7 @@ arr=list(set(arr))
 f=codecs.open('taglist.txt', 'w', 'utf-8')
 for tag in arr:
     tag=tag.lower()
-    tag=re.sub(' ', '', tag)
+    tag=re.sub('^ ', '', tag)
     if tag!='':
         f.write(tag+'\n')
 f.close()
