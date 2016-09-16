@@ -6,31 +6,33 @@ from getdata import _read_data, Video
 
 database = _read_data()
 
+
 def get_random_tags():
-    f=codecs.open('taglist.txt', 'r', 'utf-8')
-    all_tags=[]
+    f = codecs.open('taglist.txt', 'r', 'utf-8')
+    all_tags = []
     for line in f:
         all_tags.append(line.strip())
     random.shuffle(all_tags)
-    final_string=", ".join(all_tags[:20])
-    final_string='Here are some topics that might get your attention:\n\n'+final_string
+    final_string = ", ".join(all_tags[:20])
+    final_string = 'Here are some topics that might get your attention:\n\n' + final_string
     return final_string
 
+
 def tag_search(q):
-    q=q.lower()
-    q=[i.strip() for i in q.split(',')]
-    d={}
+    q = q.lower()
+    q = [i.strip() for i in q.split(',')]
+    d = {}
     for video in database:
-        d[video.URL]=0
+        d[video.URL] = 0
         for n in q:
             if n in video.tags:
-                d[video.URL]+=1
-    arr=[]
-    bestchoice=d[sorted(d, key=d.get, reverse=True)[0]]
-    if bestchoice==0:
+                d[video.URL] += 1
+    arr = []
+    bestchoice = d[sorted(d, key=d.get, reverse=True)[0]]
+    if bestchoice == 0:
         return None
     for i in d:
-        if d[i]==bestchoice:
+        if d[i] == bestchoice:
             arr.append(i)
     return random.choice(arr)
 
@@ -65,6 +67,7 @@ def nameyourself(message):
     bot.send_message(message.chat.id,
                      "Hi! I can send you an inspirational video from ted.com. Just type any topic. If you can't choose a topic, please type /random. For more instructions type /help.")
 
+
 @bot.message_handler(commands=['help'])
 def help(message):
     bot.send_message(message.chat.id,
@@ -76,12 +79,14 @@ def rand(message):
     bot.send_message(message.chat.id,
                      random_video())
 
+
 @bot.message_handler(commands=['tags'])
 def rand(message):
     text = tag_search(message.text.replace('/tags', ''))
     if text is None:
         text = 'Sorry, no matching videos. :('
     bot.send_message(message.chat.id, text)
+
 
 @bot.message_handler(commands=['author'])
 def rand(message):
@@ -98,9 +103,11 @@ def rand(message):
         text = 'Sorry, no matching videos. :('
     bot.send_message(message.chat.id, text)
 
+
 @bot.message_handler(commands=['taglist'])
 def rand(message):
     bot.send_message(message.chat.id, get_random_tags())
+
 
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
