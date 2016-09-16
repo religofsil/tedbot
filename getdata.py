@@ -14,4 +14,4 @@ def _read_data():
         arr.append(Video(database[i]))
     return arr
 
-print(_read_data()[0].URL)
+# print(_read_data()[0].URL)
