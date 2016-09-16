@@ -8,7 +8,7 @@ database = _read_data()
 
 
 def tag_search(q):
-    q=q.split(', ')
+    q=[i.strip() for i in q.split(',')]
     d={}
     for video in database:
         d[video.URL]=0
