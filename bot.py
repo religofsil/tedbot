@@ -5,12 +5,12 @@ import random
 import botan
 from getdata import _read_data, processRequest
 import os
-import uuid
+import time
 from collections import defaultdict
 
 _url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases'
 _key = 'fc40878d47ed438bb7f229f9ebd34802'
-DIR = os.getcwd()
+DIR = os.path.dirname(os.path.realpath(__file__))
 
 from getdata import _read_data, Video
 
@@ -33,6 +33,7 @@ def get_key_words(text):
               ]
             }
     data = None
+    time.sleep(15)
 
     result = processRequest('post', _url, json, data, headers, params)
     if result and 'documents' in result:
@@ -54,20 +55,20 @@ def get_random_tags():
 def tag_search(q):
     q = q.lower()
     q = [i.strip() for i in q.split(',')]
-    d = {}
+    d = defaultdict(int)
     for video in database:
-        d[video.URL] = 0
         for n in q:
             if n in video.tags:
-                d[video.URL] += 1
-    arr = []
-    bestchoice = d[sorted(d, key=d.get, reverse=True)[0]]
-    if bestchoice == 0:
-        return None
-    for i in d:
-        if d[i] == bestchoice:
-            arr.append(i)
-    return random.choice(arr)
+                d[video] += 1
+    if d:
+        arr = []
+        bestchoice = d[sorted(d, key=d.get, reverse=True)[0]]
+        if bestchoice == 0:
+            return None
+        for i in d:
+            if d[i] == bestchoice:
+                arr.append(i)
+        return random.choice(arr)
 
 
 
