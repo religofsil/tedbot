@@ -12,7 +12,9 @@ import re
 regRus = re.compile('[а-яёА-ЯЁ]+')
 
 fish = ['BQADAgADBAADijc4AAFx0NNqDnJm4QI', 'BQADAgADBgADijc4AAH50MoMENn2lQI', 'BQADAgADCAADijc4AAGB93daGX3cWgI', 'BQADAgADLQADijc4AAGBowxjAqAlGwI',
-        'BQADAgADDgADijc4AAGOGq6J30OGfwI', 'BQADAgADEAADijc4AAESVXqKiwYE2wI']
+        'BQADAgADDgADijc4AAGOGq6J30OGfwI', 'BQADAgADEAADijc4AAESVXqKiwYE2wI', 'BQADAgADEgADijc4AAF00GirhpifXQI', 'BQADAgADFAADijc4AAGtl5dISqHmiAI',
+        'BQADAgADFgADijc4AAErJ-ihzzsO7wI', 'BQADAgADJwADijc4AAE3oUMhargOuAI', 'BQADAgADGQADijc4AAHtT7j-b6m-2QI', 'BQADAgADGwADijc4AAEdwByBSe9kgQI',
+        'BQADAgADHQADijc4AAEw0RBgpCTPAAEC', 'BQADAgADHwADijc4AAFXWsuIC4i6fAI', 'BQADAgADMwADijc4AAGU2NZK2N9ilwI']
 
 _url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases'
 _key = '6d94c54792834b5a97032893d8a6402a'
