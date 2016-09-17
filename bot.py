@@ -44,8 +44,8 @@ botan_token = 'FUYkZeK4x63xg32AJGe44tKFk:_xCBkc'
 def swearwords(q):
     f = open(DIR + '/swearlist.txt', 'r', encoding='utf-8')
     for line in f:
-        line = line.strip()
-        if line in q.split(' '):
+        line = line.strip().lower()
+        if line in q.lower().split(' '):
             return True
     return False
 
@@ -192,13 +192,13 @@ def rand(message):
     bot.send_message(message.chat.id, get_random_tags())
 
 
-@bot.message_handler(regexp="T|thank.*")
+@bot.message_handler(regexp="(?i)thank.*")
 def handle_message(message):
     botan.track(config.botan_key, message.chat.id, message, 'thanks')
     bot.send_message(message.chat.id, "You're welcome. :)")
 
 
-@bot.message_handler(regexp=".*Y|your name.*")
+@bot.message_handler(regexp="(?i).*?your name.*")
 def handle_message(message):
     botan.track(config.botan_key, message.chat.id, message, 'name')
     bot.send_message(message.chat.id, "A bot has no name.")
