@@ -157,7 +157,7 @@ def rand(message):
     botan.track(config.botan_key, message.chat.id, message, 'taglist')
     bot.send_message(message.chat.id, get_random_tags())
 
-@bot.message_handler(regexp="thank.*")
+@bot.message_handler(regexp="T|thank.*")
 def handle_message(message):
     botan.track(config.botan_key, message.chat.id, message, 'thanks')
     bot.send_message(message.chat.id, "You're welcome. :)")
