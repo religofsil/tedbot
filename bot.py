@@ -160,7 +160,7 @@ def rand(message):
 
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
-    botan.track(config.botan_key, message.chat.id, message, 'plain search')
+    botan.track(config.botan_key, message.chat.id, message, message.text)
     tags, desc  ='', ''
     kw = get_key_words(message.text)
     tosearch = message.text
