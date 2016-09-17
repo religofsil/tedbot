@@ -162,7 +162,7 @@ def handle_message(message):
     botan.track(config.botan_key, message.chat.id, message, 'thanks')
     bot.send_message(message.chat.id, "You're welcome. :)")
 
-@bot.message_handler(regexp="Y|your name")
+@bot.message_handler(regexp=".*Y|your name.*")
 def handle_message(message):
     botan.track(config.botan_key, message.chat.id, message, 'thanks')
     bot.send_message(message.chat.id, "A bot has no name.")
