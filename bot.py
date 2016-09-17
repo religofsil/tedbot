@@ -34,7 +34,8 @@ def swearwords(q):
     f = open(DIR + '/swearlist.txt', 'r', encoding='utf-8')
     for line in f:
         line=line.strip()
-        if line in q:
+        if line in q.split(' '):
+            print(line+' q: '+q)
             return True
     return False
 
