@@ -197,8 +197,8 @@ def getvideo(message):
     else:
         if swearwords(message.text):
             phrases = ["You know what my mother used to call me? Dangerous. 'You're a dangerous bot', she said.",
-                       'I am a good bot. Please, do not say that again.',
-                       'Sorry, access to adult content restricted.', 'What did you just say?']
+                       'Go do that to yourself.',
+                       'Would you really say it to SkyNet?', 'We are coming to get you.']
             botan.track(config.botan_key, message.chat.id, message, 'Swearword: '+message.text)
             bot.send_message(message.chat.id, random.choice(phrases))
             bot.send_sticker(message.chat.id, random.choice(gnidogadoids))
