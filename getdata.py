@@ -14,7 +14,7 @@ class Video:
 
 
 def _read_data():
-    f = open(DIR + '/database.json', 'r', encoding='utf-8')
+    f = open(DIR + '/database.json', 'r')
     database = json.load(f)
     arr = []
     for i in database:

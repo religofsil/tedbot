@@ -90,7 +90,7 @@ def author_search(q):
 
 
 def random_video():
-    return random.choice(database)
+    return random.choice(database).URL
 
 
 bot = telebot.TeleBot(config.token)
