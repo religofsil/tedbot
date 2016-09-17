@@ -7,6 +7,12 @@ from getdata import _read_data, processRequest
 import os
 import time
 from collections import defaultdict
+import re
+
+regRus = re.compile('[а-яёА-ЯЁ]+')
+
+fish = ['BQADAgADBAADijc4AAFx0NNqDnJm4QI', 'BQADAgADBgADijc4AAH50MoMENn2lQI', 'BQADAgADCAADijc4AAGB93daGX3cWgI', 'BQADAgADLQADijc4AAGBowxjAqAlGwI',
+        'BQADAgADDgADijc4AAGOGq6J30OGfwI', 'BQADAgADEAADijc4AAESVXqKiwYE2wI']
 
 _url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases'
 _key = '6d94c54792834b5a97032893d8a6402a'
@@ -170,35 +176,38 @@ def handle_message(message):
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
     botan.track(config.botan_key, message.chat.id, message, message.text)
-    tags, desc  ='', ''
-    kw = get_key_words(message.text)
-    tosearch = message.text
-    if kw:
-        tosearch = ','.join(kw)
-    bytags = tag_search(tosearch)
-    if bytags is None:
-        bydesc = description_search(tosearch)
-        if bydesc is None:
-            text = 'Sorry, no matching videos. :('
+    if regRus.search(message.text) is not None:
+        bot.send_sticker(message.chat.id, random.choice(fish))
+    else:
+        tags, desc  ='', ''
+        kw = get_key_words(message.text)
+        tosearch = message.text
+        if kw:
+            tosearch = ','.join(kw)
+        bytags = tag_search(tosearch)
+        if bytags is None:
+            bydesc = description_search(tosearch)
+            if bydesc is None:
+                text = 'Sorry, no matching videos. :('
+            else:
+                text = bydesc.URL
+                desc = bydesc.description
+                tags = ', '.join(bydesc.tags)
         else:
-            text = bydesc.URL
-            desc = bydesc.description
-            tags = ', '.join(bydesc.tags)
-    else:
-        text = bytags.URL
-        tags = ', '.join(bytags.tags)
-        desc = bytags.description
+            text = bytags.URL
+            tags = ', '.join(bytags.tags)
+            desc = bytags.description
 
-    if text == 'Sorry, no matching videos. :(':
-        bot.send_message(message.chat.id, text)
-    else:
-        collect_message = ''
-        if tags:
-            collect_message += 'Tags in video: ' + tags + ' \r\n\r\n'
-        if desc:
-            collect_message += 'Description: ' + desc + '\r\n\r\n'
-        bot.send_message(message.chat.id, collect_message + text)
-    # bot.send_message(message.chat.id, tosearch + '\r\n\r\n' + tags + ' ' + desc + '\r\n\r\n' + text)
+        if text == 'Sorry, no matching videos. :(':
+            bot.send_message(message.chat.id, text)
+        else:
+            collect_message = ''
+            if tags:
+                collect_message += 'Tags in video: ' + tags + ' \r\n\r\n'
+            if desc:
+                collect_message += 'Description: ' + desc + '\r\n\r\n'
+            bot.send_message(message.chat.id, collect_message + text)
+        # bot.send_message(message.chat.id, tosearch + '\r\n\r\n' + tags + ' ' + desc + '\r\n\r\n' + text)
 
 
 if __name__ == '__main__':
