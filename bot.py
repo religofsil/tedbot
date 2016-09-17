@@ -33,7 +33,7 @@ def get_key_words(text):
               ]
             }
     data = None
-    time.sleep(15)
+    time.sleep(random.choice([1,2,3,4,5,6,8, 10, 17, 15, 20]))
 
     result = processRequest('post', _url, json, data, headers, params)
     if result and 'documents' in result:
@@ -179,6 +179,7 @@ def getvideo(message):
         text = bytags.URL
         tags = ', '.join(bytags.tags)
         desc = bytags.description
+
     if text == 'Sorry, no matching videos. :(':
         bot.send_message(message.chat.id, text)
     else:

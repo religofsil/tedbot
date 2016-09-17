@@ -6,7 +6,7 @@ import os
 
 DIR = os.path.dirname(os.path.realpath(__file__))
 
-_maxNumRetries = 10
+_maxNumRetries = 100
 
 class Video:
     def __init__(self, values):
