@@ -68,7 +68,9 @@ def get_random_tags():
         all_tags.append(line.strip())
     random.shuffle(all_tags)
     final_string = ", ".join(all_tags[:20])
-    final_string = 'Here are some topics that might get your attention:\n\n' + final_string
+    phrases = ['Here are some topics that might get your attention:\n\n', 'Probably, you will be interested in these topics:\n\n',
+               'Check out some of these:\n\n', 'I collected a small set of tags for you:\n\n']
+    final_string = random.choice(phrases) + final_string
     return final_string
 
 
@@ -194,10 +196,16 @@ def getvideo(message):
         bot.send_sticker(message.chat.id, random.choice(fish))
     else:
         if swearwords(message.text):
+            phrases = ["You know what my mother used to call me? Dangerous. 'You're a dangerous bot', she said.",
+                       'Go do that to yourself.',
+                       'Would you really say it to SkyNet?', 'We are coming to get you.']
             botan.track(config.botan_key, message.chat.id, message, 'Swearword: '+message.text)
-            bot.send_message(message.chat.id, "You know what my mother used to call me? Dangerous. 'You're a dangerous bot', she said.")
+            bot.send_message(message.chat.id, random.choice(phrases))
             bot.send_sticker(message.chat.id, random.choice(gnidogadoids))
             return True
+        phrases2 = ["Sorry, no matching videos. :(",
+                   "Ooops, I couldn't find anything. :scream:",
+                   'Bad luck. Nothing found. Try something else. ', 'Seems, TED has no video on this topic.']
         tags, desc  ='', ''
         kw = get_key_words(message.text)
         tosearch = message.text
@@ -207,7 +215,7 @@ def getvideo(message):
         if bytags is None:
             bydesc = description_search(tosearch)
             if bydesc is None:
-                text = 'Sorry, no matching videos. :('
+                text = None
             else:
                 text = bydesc.URL
                 desc = bydesc.description
@@ -217,10 +225,13 @@ def getvideo(message):
             tags = ', '.join(bytags.tags)
             desc = bytags.description
 
-        if text == 'Sorry, no matching videos. :(':
-            bot.send_message(message.chat.id, text)
+        found_something = ["Here's what I found!", "Check this out!", "Wow, this one is definitely worth watching!",
+                           "How do you find this one?"]
+
+        if text is None:
+            bot.send_message(message.chat.id, random.choice(phrases2))
         else:
-            collect_message = ''
+            collect_message = random.choice(found_something)
             if tags:
                 collect_message += 'Tags in video: ' + tags + ' \r\n\r\n'
             if desc:
