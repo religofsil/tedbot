@@ -4,7 +4,7 @@ import telebot
 import random
 from getdata import _read_data, processRequest
 import os
-import uuid
+import time
 from collections import defaultdict
 
 _url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases'
@@ -31,6 +31,7 @@ def get_key_words(text):
               ]
             }
     data = None
+    time.sleep(15)
 
     result = processRequest('post', _url, json, data, headers, params)
     if result and 'documents' in result:
