@@ -9,7 +9,7 @@ import time
 from collections import defaultdict
 
 _url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases'
-_key = 'fc40878d47ed438bb7f229f9ebd34802'
+_key = '6d94c54792834b5a97032893d8a6402a'
 DIR = os.path.dirname(os.path.realpath(__file__))
 
 from getdata import _read_data, Video
