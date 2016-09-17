@@ -81,8 +81,8 @@ def get_random_tags():
     random.shuffle(all_tags)
     final_string = ", ".join(all_tags[:20])
     phrases = ['Here are some topics that might get your attention:\n\n',
-               'Probably, you will be interested in these topics:\n\n',
-               'Check out some of these:\n\n', 'I collected a small set of tags for you:\n\n']
+               'Maybe you will be interested in these topics:\n\n',
+               'Check out some of these:\n\n', 'I have a small set of tags for you:\n\n']
     final_string = random.choice(phrases) + final_string
     return final_string
 
