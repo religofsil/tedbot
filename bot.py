@@ -9,6 +9,8 @@ from collections import defaultdict
 _url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases'
 _key = 'fc40878d47ed438bb7f229f9ebd34802'
 
+from getdata import _read_data, Video
+
 database = _read_data()
 
 
@@ -34,20 +36,35 @@ def get_key_words(text):
     return None
 
 
+def get_random_tags():
+    f = open('taglist.txt', 'r', encoding='utf-8')
+    all_tags = []
+    for line in f:
+        all_tags.append(line.strip())
+    random.shuffle(all_tags)
+    final_string = ", ".join(all_tags[:20])
+    final_string = 'Here are some topics that might get your attention:\n\n' + final_string
+    return final_string
+
+
 def tag_search(q):
-    q=[i.strip() for i in q.split(',')]
-    d=defaultdict(int)
+    q = q.lower()
+    q = [i.strip() for i in q.split(',')]
+    d = {}
     for video in database:
+        d[video.URL] = 0
         for n in q:
             if n in video.tags:
-                d[video]+=1
-    arr=[]
-    if d:
-        bestchoice=d[sorted(d, key=lambda x: d[x], reverse=True)[0]]
-        for i in d:
-            if d[i]==bestchoice:
-                arr.append(i)
-        return random.choice(arr)
+                d[video.URL] += 1
+    arr = []
+    bestchoice = d[sorted(d, key=d.get, reverse=True)[0]]
+    if bestchoice == 0:
+        return None
+    for i in d:
+        if d[i] == bestchoice:
+            arr.append(i)
+    return random.choice(arr)
+
 
 
 def description_search(q):
@@ -76,16 +93,23 @@ def random_video():
 bot = telebot.TeleBot(config.token)
 
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start'])
 def nameyourself(message):
     bot.send_message(message.chat.id,
-                     "Hi! I can send you an inspirational video from ted.com. Just type any topic. If you can't choose a topic, please type /random.")
+                     "Hi! I can send you an inspirational video from ted.com. Just type any topic. If you can't choose a topic, please type /random. For more instructions type /help.")
+
+
+@bot.message_handler(commands=['help'])
+def help(message):
+    bot.send_message(message.chat.id,
+                     "You can just input some key words separated by comma (e.g. 'linguistics, math'), and I'll send you a matching video. Or you can use our advanced search, just type your command before the query.\nHere is the list of possible commands:\n/taglist          If you want examples of topics we have.\n/random       Get random video.\n/tags            Search video by tags.\n/description   Search video by words from description.\n/author         Search video by author.")
 
 
 @bot.message_handler(commands=['random'])
 def rand(message):
     bot.send_message(message.chat.id,
                      random_video().URL)
+
 
 @bot.message_handler(commands=['tags'])
 def rand2(message):
@@ -95,6 +119,7 @@ def rand2(message):
     else:
         text = video.URL
     bot.send_message(message.chat.id, text)
+
 
 @bot.message_handler(commands=['author'])
 def rand3(message):
@@ -115,6 +140,10 @@ def rand4(message):
         text = video.URL
     bot.send_message(message.chat.id, text)
 
+
+@bot.message_handler(commands=['taglist'])
+def rand(message):
+    bot.send_message(message.chat.id, get_random_tags())
 
 
 @bot.message_handler(content_types=["text"])
