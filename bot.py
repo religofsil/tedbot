@@ -109,7 +109,7 @@ def nameyourself(message):
 def help(message):
     botan.track(config.botan_key, message.chat.id, message, 'help')
     bot.send_message(message.chat.id,
-                     "You can just input some key words separated by comma (e.g. 'linguistics, math'), and I'll send you a matching video. Or you can use our advanced search, just type your command before the query.\nHere is the list of possible commands:\n/taglist          If you want examples of topics we have.\n/random       Get random video.\n/tags            Search video by tags.\n/description   Search video by words from description.\n/author         Search video by author.")
+                     "You can just input some key words separated by comma (e.g. 'linguistics, math'), and I'll send you a matching video. You can type questions in English as you usually do, e.g. 'Please, send me a video about space and aliens'. I'll do my best to show you relevant TED-talks. \nOr you can use our advanced search, just type your command before the query.\nHere is the list of possible commands:\n/taglist          If you want examples of topics we have.\n/random       Get random video.\n/tags            Search video by tags.\n/description   Search video by words from description.\n/author         Search video by author.")
 
 
 @bot.message_handler(commands=['random'])
