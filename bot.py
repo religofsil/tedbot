@@ -2,6 +2,7 @@
 import config
 import telebot
 import random
+import botan
 from getdata import _read_data, processRequest
 import os
 import uuid
@@ -14,6 +15,7 @@ DIR = os.getcwd()
 from getdata import _read_data, Video
 
 database = _read_data()
+botan_token = 'FUYkZeK4x63xg32AJGe44tKFk:_xCBkc'
 
 
 def get_key_words(text):
@@ -97,24 +99,28 @@ bot = telebot.TeleBot(config.token)
 
 @bot.message_handler(commands=['start'])
 def nameyourself(message):
+    botan.track(config.botan_key, message.chat.id, message, 'start')
     bot.send_message(message.chat.id,
                      "Hi! I can send you an inspirational video from ted.com. Just type any topic. If you can't choose a topic, please type /random. For more instructions type /help.")
 
 
 @bot.message_handler(commands=['help'])
 def help(message):
+    botan.track(config.botan_key, message.chat.id, message, 'help')
     bot.send_message(message.chat.id,
                      "You can just input some key words separated by comma (e.g. 'linguistics, math'), and I'll send you a matching video. Or you can use our advanced search, just type your command before the query.\nHere is the list of possible commands:\n/taglist          If you want examples of topics we have.\n/random       Get random video.\n/tags            Search video by tags.\n/description   Search video by words from description.\n/author         Search video by author.")
 
 
 @bot.message_handler(commands=['random'])
 def rand(message):
+    botan.track(config.botan_key, message.chat.id, message, 'random')
     bot.send_message(message.chat.id,
                      random_video().URL)
 
 
 @bot.message_handler(commands=['tags'])
 def rand2(message):
+    botan.track(config.botan_key, message.chat.id, message, 'search by tags')
     video = tag_search(message.text.replace('/tags', ''))
     if video is None:
         text = 'Sorry, no matching videos. :('
@@ -125,6 +131,7 @@ def rand2(message):
 
 @bot.message_handler(commands=['author'])
 def rand3(message):
+    botan.track(config.botan_key, message.chat.id, message, 'search by author')
     video = author_search(message.text.replace('/author', ''))
     if video is None:
         text = 'Sorry, no matching videos. :('
@@ -135,6 +142,7 @@ def rand3(message):
 
 @bot.message_handler(commands=['description'])
 def rand4(message):
+    botan.track(config.botan_key, message.chat.id, message, 'search by description')
     video = description_search(message.text.replace('/description', '')).URL
     if video is None:
         text = 'Sorry, no matching videos. :('
@@ -145,11 +153,13 @@ def rand4(message):
 
 @bot.message_handler(commands=['taglist'])
 def rand(message):
+    botan.track(config.botan_key, message.chat.id, message, 'taglist')
     bot.send_message(message.chat.id, get_random_tags())
 
 
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
+    botan.track(config.botan_key, message.chat.id, message, 'plain search')
     tags, desc  ='', ''
     kw = get_key_words(message.text)
     tosearch = message.text
