@@ -2,6 +2,9 @@ import json
 import requests
 import time
 
+import os
+
+DIR = os.getcwd()
 
 _maxNumRetries = 10
 
@@ -11,7 +14,7 @@ class Video:
 
 
 def _read_data():
-    f = open('database.json', 'r', encoding='utf-8')
+    f = open(DIR + '/database.json', 'r', encoding='utf-8')
     database = json.load(f)
     arr = []
     for i in database:

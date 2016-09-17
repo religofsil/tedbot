@@ -3,11 +3,13 @@ import config
 import telebot
 import random
 from getdata import _read_data, processRequest
+import os
 import uuid
 from collections import defaultdict
 
 _url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases'
 _key = 'fc40878d47ed438bb7f229f9ebd34802'
+DIR = os.getcwd()
 
 from getdata import _read_data, Video
 
@@ -37,7 +39,7 @@ def get_key_words(text):
 
 
 def get_random_tags():
-    f = open('taglist.txt', 'r', encoding='utf-8')
+    f = open(DIR+'/taglist.txt', 'r', encoding='utf-8')
     all_tags = []
     for line in f:
         all_tags.append(line.strip())
