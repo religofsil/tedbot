@@ -16,6 +16,11 @@ fish = ['BQADAgADBAADijc4AAFx0NNqDnJm4QI', 'BQADAgADBgADijc4AAH50MoMENn2lQI', 'B
         'BQADAgADFgADijc4AAErJ-ihzzsO7wI', 'BQADAgADJwADijc4AAE3oUMhargOuAI', 'BQADAgADGQADijc4AAHtT7j-b6m-2QI', 'BQADAgADGwADijc4AAEdwByBSe9kgQI',
         'BQADAgADHQADijc4AAEw0RBgpCTPAAEC', 'BQADAgADHwADijc4AAFXWsuIC4i6fAI', 'BQADAgADMwADijc4AAGU2NZK2N9ilwI']
 
+gnidogadoids=['BQADAgADDQADk81XAAF2ISvz1e1cZwI', 'BQADAgADDwADk81XAAF_FX9vSI0ZUgI', 'BQADAgADEQADk81XAAF57og3ZPGXNQI', 'BQADAgADEwADk81XAAGPLvDl-q-8GQI',
+              'BQADAgADjAADk81XAAH2oYm_MyQlKQI', 'BQADAgADigADk81XAAGP8kPSVTjNHQI', 'BQADAgADiAADk81XAAFhrgRCtLZ0JQI', 'BQADAgADhgADk81XAAG_vC1oQ2LblAI',
+              'BQADAgADhAADk81XAAHSNzBXP3fM3gI', 'BQADAgADggADk81XAAFv08mRRBMhtwI', 'BQADAgADgAADk81XAAEwHUrkqz_d6wI', 'BQADAgADfgADk81XAAEyUjRJEr48QAI',
+              'BQADAgADfAADk81XAAEHvxMGv8_1YQI', 'BQADAgADegADk81XAAEKJF8elYIyWwI', 'BQADAgADeAADk81XAAH5MZSu2t3MNwI', 'BQADAgADdgADk81XAAH-AyIuAAHuLtcC']
+
 _url = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases'
 _key = '6d94c54792834b5a97032893d8a6402a'
 DIR = os.path.dirname(os.path.realpath(__file__))
@@ -25,6 +30,13 @@ from getdata import _read_data, Video
 database = _read_data()
 botan_token = 'FUYkZeK4x63xg32AJGe44tKFk:_xCBkc'
 
+def swearwords(q):
+    f = open(DIR + '/swearlist.txt', 'r', encoding='utf-8')
+    for line in f:
+        line=line.strip()
+        if line in q:
+            return True
+    return False
 
 def get_key_words(text):
     headers = dict()
@@ -177,10 +189,15 @@ def handle_message(message):
 
 @bot.message_handler(content_types=["text"])
 def getvideo(message):
-    botan.track(config.botan_key, message.chat.id, message, message.text)
     if regRus.search(message.text) is not None:
+        botan.track(config.botan_key, message.chat.id, message, 'Russian: '+message.text)
         bot.send_sticker(message.chat.id, random.choice(fish))
     else:
+        if swearwords(message.text):
+            botan.track(config.botan_key, message.chat.id, message, 'Swearword: '+message.text)
+            bot.send_message(message.chat.id, "You know what my mother used to call me? Dangerous. 'You're a dangerous bot', she said.")
+            bot.send_sticker(message.chat.id, random.choice(gnidogadoids))
+            return True
         tags, desc  ='', ''
         kw = get_key_words(message.text)
         tosearch = message.text
