@@ -114,7 +114,7 @@ def author_search(q):
 
 
 def random_video():
-    return random.choice(database).URL
+    return random.choice(database)
 
 
 bot = telebot.TeleBot(config.token)
@@ -166,7 +166,7 @@ def rand3(message):
 @bot.message_handler(commands=['description'])
 def rand4(message):
     botan.track(config.botan_key, message.chat.id, message, 'search by description')
-    video = description_search(message.text.replace('/description', '')).URL
+    video = description_search(message.text.replace('/description', ''))
     if video is None:
         text = 'Sorry, no matching videos. :('
     else:
@@ -225,8 +225,8 @@ def getvideo(message):
             tags = ', '.join(bytags.tags)
             desc = bytags.description
 
-        found_something = ["Here's what I found!", "Check this out!", "Wow, this one is definitely worth watching!",
-                           "How do you find this one?"]
+        found_something = ["Here's what I found!\n\n", "Check this out!\n\n", "Wow, this one is definitely worth watching!\n\n",
+                           "How do you find this one?\n\n"]
 
         if text is None:
             bot.send_message(message.chat.id, random.choice(phrases2))
