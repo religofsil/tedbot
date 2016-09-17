@@ -4,7 +4,7 @@ import time
 
 import os
 
-DIR = os.getcwd()
+DIR = os.path.dirname(os.path.realpath(__file__))
 
 _maxNumRetries = 10
 
