@@ -11,6 +11,8 @@ import re
 
 regRus = re.compile('[а-яёА-ЯЁ]+')
 
+russian=['Ya ne ponimau po-russki. :(', 'Sorry, no Russian.', 'Ghbdtn! Please use English.', "Do you speak English? Because I do."]
+
 fish = ['BQADAgADBAADijc4AAFx0NNqDnJm4QI', 'BQADAgADBgADijc4AAH50MoMENn2lQI', 'BQADAgADCAADijc4AAGB93daGX3cWgI', 'BQADAgADLQADijc4AAGBowxjAqAlGwI',
         'BQADAgADDgADijc4AAGOGq6J30OGfwI', 'BQADAgADEAADijc4AAESVXqKiwYE2wI', 'BQADAgADEgADijc4AAF00GirhpifXQI', 'BQADAgADFAADijc4AAGtl5dISqHmiAI',
         'BQADAgADFgADijc4AAErJ-ihzzsO7wI', 'BQADAgADJwADijc4AAE3oUMhargOuAI', 'BQADAgADGQADijc4AAHtT7j-b6m-2QI', 'BQADAgADGwADijc4AAEdwByBSe9kgQI',
@@ -194,6 +196,7 @@ def handle_message(message):
 def getvideo(message):
     if regRus.search(message.text) is not None:
         botan.track(config.botan_key, message.chat.id, message, 'Russian: '+message.text)
+        bot.send_message(message.chat.id, random.choice(russian))
         bot.send_sticker(message.chat.id, random.choice(fish))
     else:
         if swearwords(message.text):
