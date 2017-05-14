@@ -21,7 +21,7 @@ DIR = os.path.dirname(os.path.realpath(__file__))
 
 DATABASE = read_data()  # actually, not a database - just a list of Video instances
 
-bot = telebot.TeleBot(config.TOKEN)
+bot = telebot.TeleBot(config.TOKEN, threaded=False)
 
 with open(DIR + config.WORDLIST, 'r', encoding='utf-8') as f:
     swords = f.readlines()  # list of swear words
