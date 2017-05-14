@@ -1,3 +1,7 @@
+"""
+List all phrases that a bot can say to user.
+"""
+
 russian = ['Ya ne ponimau po-russki. :(',
            'Sorry, no Russian.',
            'Ghbdtn! Please use English.',
@@ -25,5 +29,5 @@ found_something = ["Here's what I found!\n\n",
 
 start = "Hi! I can send you an inspirational video from ted.com. Just type any topic. If you can't choose a topic, please type /random. For more instructions type /help."
 
-help = "You can just input some key words separated by comma (e.g. 'linguistics, math'), and I'll send you a matching video. You can type questions in English as you usually do, e.g. 'Please, send me a video about space and aliens'. I'll do my best to show you relevant TED-talks. \nOr you can use our advanced search, just type your command before the query.\nHere is the list of possible commands:\n/taglist          If you want examples of topics we have.\n/random       Get random video.\n/tags            Search video by tags.\n/description   Search video by words from description.\n/author         Search video by author."
+help = "You can input any key words separated by comma (e.g. 'linguistics, math'), and I'll send you a matching video. You can type questions in English as you usually do, e.g. 'Please, send me a video about space and aliens'. I'll do my best to show you relevant TED-talks. \nOr you can use our advanced search, just type your command before the query.\nHere is the list of possible commands:\n/taglist         Get 20 random topics from our tag list\n/random       Get random video.\n/tags            Search video by tags.\n/description   Search video by words from description.\n/author         Search video by author. \n\nHere are some examples:\n/tags linguistics, math\n/author Elon Musk\n/description learning, experimentation, science"
 

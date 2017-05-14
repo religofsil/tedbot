@@ -21,11 +21,9 @@ def make_json(message):
 
 
 def track(token, uid, msg, name='Message'):
-    global url_template
     url = URL_TEMPLATE.format(token=str(token), uid=str(uid), name=name)
     headers = {'Content-type': 'application/json'}
     try:
-        # Если убрали функцию выше, замените json.dumps(make_json(msg)) на json.dumps({})
         r = requests.post(url, data=json.dumps(make_json(msg)), headers=headers)
         return r.json()
     except requests.exceptions.Timeout:

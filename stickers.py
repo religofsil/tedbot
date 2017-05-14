@@ -1,3 +1,7 @@
+"""
+Store all stickers that a bot can send to user.
+"""
+
 fish = ['BQADAgADBAADijc4AAFx0NNqDnJm4QI', 'BQADAgADBgADijc4AAH50MoMENn2lQI', 'BQADAgADCAADijc4AAGB93daGX3cWgI',
         'BQADAgADLQADijc4AAGBowxjAqAlGwI',
         'BQADAgADDgADijc4AAGOGq6J30OGfwI', 'BQADAgADEAADijc4AAESVXqKiwYE2wI', 'BQADAgADEgADijc4AAF00GirhpifXQI',

@@ -1,3 +1,6 @@
+"""
+Read datatable and create a json file.
+"""
 import json
 
 with open('database.tsv', 'r', encoding='utf-8') as f:

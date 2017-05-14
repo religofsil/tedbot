@@ -1,3 +1,6 @@
+"""
+Make a list of all tags in videos.
+"""
 import json, re
 
 with open('database.json', 'r', encoding='utf-8') as f:
