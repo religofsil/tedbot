@@ -1,6 +1,7 @@
 import json
 import requests
 import time
+from config import *
 
 import os
 
@@ -8,18 +9,20 @@ DIR = os.path.dirname(os.path.realpath(__file__))
 
 _maxNumRetries = 100
 
+
 class Video:
     def __init__(self, values):
         vars(self).update(values)
 
 
 def _read_data():
-    f = open(DIR + '/database.json', 'r')
-    database = json.load(f)
+    with open(DIR + DATA, 'r', encoding='utf-8') as f:
+        database = json.load(f)
     arr = []
     for i in database:
         arr.append(Video(database[i]))
     return arr
+
 
 def processRequest(method, url, json, data, headers, params):
     """
